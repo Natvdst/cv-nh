@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NH CV</title>
+    <meta name="description" content="CV Natalia Hurt" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* CV Design System - Bisque zu Senffarbe Theme */
+            --background: 33 100% 96%;  /* Light bisque */
+            --foreground: 45 60% 25%;   /* Dark mustard text */
+            
+            --card: 0 0% 100%;
+            --card-foreground: 45 60% 25%;
+            
+            --primary: 45 75% 50%;      /* Senffarbe/Mustard */
+            --primary-foreground: 0 0% 100%;
+            
+            --secondary: 33 60% 85%;    /* Light bisque */
+            --secondary-foreground: 45 50% 35%;
+            
+            --muted: 33 30% 90%;
+            --muted-foreground: 45 30% 45%;
+            
+            --accent: 45 65% 55%;       /* Medium mustard */
+            --accent-foreground: 0 0% 100%;
+            
+            --border: 33 40% 85%;
+            --input: 33 40% 85%;
+            --ring: 45 75% 50%;
+            
+            /* Custom CV colors */
+            --cv-gradient-start: 33 100% 94%;  /* Bisque */
+            --cv-gradient-end: 45 50% 85%;     /* Light mustard */
+            --cv-hover: 45 80% 55%;            /* Bright mustard for hover */
+            --cv-button: 45 70% 45%;           /* Button mustard */
+            --cv-button-hover: 45 75% 40%;     /* Button hover */
+            
+            /* ⭐ ANPASSBARE FARBEN FÜR SKILLS/INTERESSEN/PROJECTS ⭐ */
+            --skill-bg: 45 85% 35%;            /* Hier Skills Hintergrundfarbe ändern */
+            --skill-text: 0 0% 100%;           /* Hier Skills Textfarbe ändern */
+            --skill-border: 45 90% 30%;        /* Hier Skills Rahmenfarbe ändern */
+        }
+        
+        .dark {
+            --background: 45 25% 8%;    /* Dark mustard background */
+            --foreground: 33 80% 90%;   /* Light bisque text */
+            
+            --card: 45 20% 12%;
+            --card-foreground: 33 80% 90%;
+            
+            --primary: 45 70% 65%;      /* Bright mustard */
+            --primary-foreground: 45 25% 8%;
+            
+            --secondary: 45 15% 15%;    /* Dark mustard secondary */
+            --secondary-foreground: 33 70% 85%;
+            
+            --muted: 45 10% 18%;
+            --muted-foreground: 33 40% 70%;
+            
+            --accent: 33 50% 60%;       /* Bisque accent */
+            --accent-foreground: 45 25% 8%;
+            
+            --border: 45 15% 20%;
+            --input: 45 15% 20%;
+            --ring: 45 70% 65%;
+            
+            /* Custom CV colors for dark mode - BLEIBT UNVERÄNDERT */
+            --cv-gradient-start: 45 25% 10%;   /* Dark mustard */
+            --cv-gradient-end: 33 40% 20%;     /* Dark bisque */
+            --cv-hover: 45 80% 70%;            /* Bright mustard for hover */
+            --cv-button: 45 60% 55%;           /* Button mustard */
+            --cv-button-hover: 45 70% 60%;     /* Button hover */
+        }
+        
+        * {
+            border-color: hsl(var(--border));
+        }
+        
+        body {
+            background: linear-gradient(135deg, hsl(var(--cv-gradient-start)), hsl(var(--cv-gradient-end)));
+            color: hsl(var(--foreground));
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .cv-button {
+            background-color: hsl(var(--cv-button));
+            color: white;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+        }
+        
+        .cv-button:hover {
+            background-color: hsl(var(--cv-button-hover));
+            transform: scale(1.05);
+        }
+        
+        .cv-card {
+            background-color: hsl(var(--card) / 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid hsl(var(--border) / 0.5);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .cv-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cv-section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: hsl(var(--primary));
+            margin-bottom: 1rem;
+            border-bottom: 1px solid hsl(var(--border));
+            padding-bottom: 0.5rem;
+        }
+        
+        .cv-gradient-text {
+            background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background-color: hsl(var(--skill-bg));
+            color: hsl(var(--skill-text));
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 2px solid hsl(var(--skill-border));
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 50;
+            background-color: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 6rem;
+            right: 1rem;
+            z-index: 50;
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border: 2px solid hsl(var(--primary));
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .scroll-to-top:hover {
+            background-color: hsl(var(--cv-button-hover));
+            transform: scale(1.1);
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+        }
+        
+        .qr-container {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 50;
+            background-color: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: hsl(var(--card));
+            min-width: 100%;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+            z-index: 1;
+            top: 100%;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-item {
+            color: hsl(var(--foreground));
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+        
+        .dropdown-item:hover {
+            background-color: hsl(var(--primary) / 0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid hsl(var(--border) / 0.5);
+        }
+        
+        th {
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-bottom: 1px solid hsl(var(--border));
+        }
+        
+        input, textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 0.875rem;
+            color: hsl(var(--foreground));
+        }
+        
+        textarea {
+            resize: none;
+            min-height: 60px;
+        }
+
+        /* ⭐ ANPASSBARE PROFIL-BILDGRÖSSE ⭐ */
+        .profile-image {
+            width: 200px;    /* Hier Bildbreite ändern */
+            height: 200px;   /* Hier Bildhöhe ändern */
+        }
+    </style>
+</head>
+<body>
+    <div id="top" class="min-h-screen relative">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <i data-lucide="sun" id="sun-icon" class="w-5 h-5"></i>
+            <i data-lucide="moon" id="moon-icon" class="w-5 h-5 hidden"></i>
+        </div>
+
+        <!-- Header -->
+        <header class="relative z-10 pt-8 pb-12">
+            <div class="text-center px-4">
+                <!-- ⭐ NAME/NACHNAME GRÖßE HIER ÄNDERN ⭐ -->
+                <h1 class="text-3xl md:text-4xl font-bold cv-gradient-text mb-2">
+                    Natalia Hurt
+                </h1>
+                <!-- ⭐ BERUF GRÖßE HIER ÄNDERN ⭐ -->
+                <p class="text-2xl md:text-4xl font-semibold" style="color: hsl(var(--primary));">
+                    Fachinformatikerin für Anwendungsentwicklung
+                </p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 pb-20">
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Left Column -->
+                <div class="space-y-6">
+                    <!-- Kontakt -->
+                    <div class="cv-card p-6 rounded-xl">
+                        <h2 class="cv-section-title">Kontakt</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="map-pin" class="w-5 h-5" style="color: hsl(var(--primary));"></i>
+                                <span>Leipzig</span>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2">
+                                <button class="skill-tag cv-button border-0" onclick="window.open('mailto:mail.mail.com', '_blank')">
+                                    <i data-lucide="mail" class="w-4 h-4 inline mr-1"></i>
+                                    mail
+                                </button>
+                                
+                                <button class="skill-tag cv-button border-0" onclick="window.open('https://github.com/Natvdst', '_blank')">
+                                    <i data-lucide="github" class="w-4 h-4 inline mr-1"></i>
+                                    GitHub
+                                </button>
+                                
+                                <button class="skill-tag cv-button border-0" onclick="window.open('https://linkedin.com/in/yourlinkedin', '_blank')">
+                                    <i data-lucide="linkedin" class="w-4 h-4 inline mr-1"></i>
+                                    LinkedIn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="cv-card p-6 rounded-xl">
+                        <h2 class="cv-section-title">Skills</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">SQL</span>
+                        </div>
+                    </div>
+
+                    <!-- Interessen -->
+                    <div class="cv-card p-6 rounded-xl">
+                        <h2 class="cv-section-title">Interessen</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">Web Frontend</span>
+                            <span class="skill-tag">Backend</span>
+                            <span class="skill-tag">KI</span>
+                            <span class="skill-tag">MQTT</span>
+                            <span class="skill-tag">IoT</span>
+                            <span class="skill-tag">Cloud</span>
+                            <span class="skill-tag">Datenanalyse</span>
+                            <span class="skill-tag">Entwicklung</span>
+                        </div>
+                    </div>
+
+                    <!-- Sprachen -->
+                    <div class="cv-card p-6 rounded-xl">
+                        <h2 class="cv-section-title">Sprachen</h2>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Deutsch</span>
+                                <span class="text-sm" style="color: hsl(var(--muted-foreground));">Fließend C1</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Englisch</span>
+                                <span class="text-sm" style="color: hsl(var(--muted-foreground));">Fließend</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Russisch</span>
+                                <span class="text-sm" style="color: hsl(var(--muted-foreground));">Muttersprache</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stärken -->
+                    <div class="cv-card p-6 rounded-xl">
+                        <h2 class="cv-section-title">Stärken</h2>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check-circle" class="w-4 h-4" style="color: hsl(var(--primary));"></i>
+                                <span>Lernfähig</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check-circle" class="w-4 h-4" style="color: hsl(var(--primary));"></i>
+                                <span>Motiviert</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check-circle" class="w-4 h-4" style="color: hsl(var(--primary));"></i>
+                                <span>Zuverlässig</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check-circle" class="w-4 h-4" style="color: hsl(var(--primary));"></i>
+                                <span>Flexibel</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest Projects -->
+                    <div class="cv-card p-6 rounded-xl">
+                        <h2 class="cv-section-title">Latest Projects</h2>
+                        <div class="dropdown">
+                            <button class="skill-tag cv-button w-full justify-between flex items-center border-0">
+                                Projekte auswählen
+                                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="https://github.com/Natvdst/conversion-tool" target="_blank" class="dropdown-item">Conversion Tool, JavaScript</a>
+                                <a href="https://github.com/Natvdst/MiniToDo" target="_blank" class="dropdown-item">To Do Liste, Java</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6">
+                    <!-- Profile Photo - Jetzt viereckig mit abgerundeten Ecken -->
+                    <div class="cv-card p-6 rounded-xl flex justify-center">
+                        <div class="relative">
+                            <img
+                                src="images/cv_bild.jpg"
+                                alt="Profil Foto"
+                                class="profile-image rounded-2xl object-cover border-4 shadow-lg"
+                                style="border-color: hsl(var(--primary));"
+                            />
+                            <div class="absolute inset-0 rounded-2xl" style="background: linear-gradient(45deg, hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.2));"></div>
+                        </div>
+                    </div>
+
+                    <!-- Bildung -->
+                    <div class="cv-card p-6 rounded-xl">
+                        <h2 class="cv-section-title">Bildung</h2>
+                        <div class="overflow-x-auto">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="w-1/3">Zeitraum</th>
+                                        <th>Institution, Qualifikation & Ort</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>01.2025-aktuell</td>
+                                        <td>Umschulung für Fachinformatikerin, Anwendungsentwicklung mit IHK Abschluss,  Cimdata Bildungsakademie GmbH, Leipzig </td>
+                                    </tr>
+                                    <tr>
+                                        <td>08.2011-01.2012</td>
+                                        <td>Auslandssemester, Erasmus, Czech Technical University, Prag</td>
+                                    </tr>
+                                    <tr>
+                                        <td>09.2007-06.2012</td>
+                                        <td>Studiumabschluss als Managerin im Staats- und Kommunalverwaltung, Staatliche Polytechnische Universität Sankt-Petersburg</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Berufserfahrung -->
+                    <div class="cv-card p-6 rounded-xl">
+                        <h2 class="cv-section-title">Berufserfahrung</h2>
+                        <div class="overflow-x-auto">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="w-1/3">Zeitraum</th>
+                                        <th>Berufsbezeichnung, Firma & Ort</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>04.2022 -01.2025</td>
+                                        <td>Finanzbuchhalterin, Posterlounge GmbH, Leipzig </td>
+                                    </tr>
+                                    <tr>
+                                        <td>07.2016 -06.2021</td>
+                                        <td>Mitarbeiterin der Verwaltung, Heiko Hurt Landwirtschaft, Tribsees</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11.2015 -04.2016</td>
+                                        <td>Assistenz der Geschäftsführung, SID Deutschland GmbH, Ludwigsburg</td>
+                                    </tr>
+                                    <tr>
+                                        <td>08.2012 -09.2013</td>
+                                        <td>Managerin, Tehmodern GmbH, Sankt-Petersburg</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Scroll to Top Button -->
+        <div class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+            <i data-lucide="arrow-up" class="w-6 h-6"></i>
+        </div>
+
+        <!-- QR Code -->
+        <div class="qr-container">
+            <canvas id="qr-canvas" width="100" height="100"></canvas>
+            <p class="text-xs text-muted-foreground text-center mt-2">Teilen Sie diese Seite</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('sun-icon').classList.add('hidden');
+            document.getElementById('moon-icon').classList.remove('hidden');
+        }
+
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // ⭐ QR CODE DOMAIN HIER ÄNDERN ⭐
+        function generateQR() {
+            const canvas = document.getElementById('qr-canvas');
+            // Hier Ihre eigene Domain eintragen:
+            const customUrl = "https://ihre-domain.com"; // ← Hier ändern!
+            // Oder aktuelle URL verwenden:
+            // const customUrl = window.location.href;
+            
+            if (window.QRCode) {
+                window.QRCode.toCanvas(canvas, customUrl, {
+                    width: 100,
+                    height: 100,
+                    colorDark: '#000000',
+                    colorLight: '#FFFFFF'
+                });
+            }
+        }
+
+        // Generate QR code when page loads
+        window.addEventListener('load', generateQR);
+    </script>
+</body>
+</html>
