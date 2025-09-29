@@ -42,10 +42,10 @@
             --cv-button: 45 70% 45%;           /* Button mustard */
             --cv-button-hover: 45 75% 40%;     /* Button hover */
             
-            /* ⭐ ANPASSBARE FARBEN FÜR SKILLS/INTERESSEN/PROJECTS ⭐ */
-            --skill-bg: 45 85% 35%;            /* Hier Skills Hintergrundfarbe ändern */
-            --skill-text: 0 0% 100%;           /* Hier Skills Textfarbe ändern */
-            --skill-border: 45 90% 30%;        /* Hier Skills Rahmenfarbe ändern */
+            /*  ANPASSBARE FARBEN FÜR SKILLS/INTERESSEN/PROJECTS  */
+            --skill-bg: 45 80% 55%;           /* Hier Skills Hintergrundfarbe ändern - Orange */
+            --skill-text: 0 0% 100%;           /* Hier Skills Textfarbe ändern - Weiß */
+            --skill-border: 24 100% 45%;       /* Hier Skills Rahmenfarbe ändern - Dunkelorange */
         }
         
         .dark {
@@ -279,11 +279,11 @@
         <!-- Header -->
         <header class="relative z-10 pt-8 pb-12">
             <div class="text-center px-4">
-                
+                <!-- ⭐ NAME/NACHNAME GRÖßE HIER ÄNDERN ⭐ -->
                 <h1 class="text-3xl md:text-4xl font-bold cv-gradient-text mb-2">
                     Natalia Hurt
                 </h1>
-              
+                <!-- ⭐ BERUF GRÖßE HIER ÄNDERN ⭐ -->
                 <p class="text-2xl md:text-4xl font-semibold" style="color: hsl(var(--primary));">
                     Fachinformatikerin für Anwendungsentwicklung
                 </p>
@@ -306,7 +306,7 @@
                             </div>
                             
                             <div class="flex flex-wrap gap-2">
-                                <button class="skill-tag cv-button border-0" onclick="window.open('mailto:natvdst@gmail.com', '_blank')">
+                                <button class="skill-tag cv-button border-0" onclick="window.open('mailto:mail.mail.com', '_blank')">
                                     <i data-lucide="mail" class="w-4 h-4 inline mr-1"></i>
                                     mail
                                 </button>
@@ -316,7 +316,7 @@
                                     GitHub
                                 </button>
                                 
-                                <button class="skill-tag cv-button border-0" onclick="window.open('https://www.linkedin.com/in/natalia-hurt-310039359/', '_blank')">
+                                <button class="skill-tag cv-button border-0" onclick="window.open('https://linkedin.com/in/yourlinkedin', '_blank')">
                                     <i data-lucide="linkedin" class="w-4 h-4 inline mr-1"></i>
                                     LinkedIn
                                 </button>
@@ -495,11 +495,15 @@
             <i data-lucide="arrow-up" class="w-6 h-6"></i>
         </div>
 
-        <!-- QR Code
+        <!-- QR Code -->
         <div class="qr-container">
-            <canvas id="qr-canvas" width="100" height="100"></canvas>
-            <p class="text-xs text-muted-foreground text-center mt-2"></p>
-        </div> -->
+            <img 
+                src="images/qr.jpg" 
+                alt="QR Code für CV" 
+                class="w-full h-full object-contain rounded"
+                style="width: 60px; height: 60px;"
+            />
+        </div>
     </div>
 
     <script>
@@ -547,23 +551,7 @@
             }
         });
 
-        // //  QR CODE DOMAIN HIER ÄNDERN 
-        // function generateQR() {
-        //     const canvas = document.getElementById('qr-canvas');
-         
-        //     const customUrl = "https://natvdst.github.io/cv-nh/"; 
-        //     if (window.QRCode) {
-        //         window.QRCode.toCanvas(canvas, customUrl, {
-        //             width: 50,
-        //             height: 50,
-        //             colorDark: '#000000',
-        //             colorLight: '#FFFFFF'
-        //         });
-        //     }
-        // }
-
-        // // Generate QR code when page loads
-        // window.addEventListener('load', generateQR);
+     
     </script>
 </body>
 </html>
