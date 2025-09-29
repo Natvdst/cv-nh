@@ -547,26 +547,23 @@
             }
         });
 
-        // ⭐ QR CODE DOMAIN HIER ÄNDERN ⭐
-        function generateQR() {
-            const canvas = document.getElementById('qr-canvas');
-            // Hier Ihre eigene Domain eintragen:
-            const customUrl = "https://natvdst.github.io/cv-nh/"; // ← Hier ändern!
-            // Oder aktuelle URL verwenden:
-            // const customUrl = window.location.href;
-            
-            if (window.QRCode) {
-                window.QRCode.toCanvas(canvas, customUrl, {
-                    width: 50,
-                    height: 50,
-                    colorDark: '#000000',
-                    colorLight: '#FFFFFF'
-                });
-            }
-        }
+        // //  QR CODE DOMAIN HIER ÄNDERN 
+        // function generateQR() {
+        //     const canvas = document.getElementById('qr-canvas');
+         
+        //     const customUrl = "https://natvdst.github.io/cv-nh/"; 
+        //     if (window.QRCode) {
+        //         window.QRCode.toCanvas(canvas, customUrl, {
+        //             width: 50,
+        //             height: 50,
+        //             colorDark: '#000000',
+        //             colorLight: '#FFFFFF'
+        //         });
+        //     }
+        // }
 
-        // Generate QR code when page loads
-        window.addEventListener('load', generateQR);
+        // // Generate QR code when page loads
+        // window.addEventListener('load', generateQR);
     </script>
 </body>
 </html>
