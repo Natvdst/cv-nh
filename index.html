@@ -196,7 +196,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         
-        .dropdown {
+                .dropdown {
             position: relative;
             display: inline-block;
             width: 100%;
@@ -230,6 +230,7 @@
             background-color: hsl(var(--primary) / 0.1);
         }
         
+        
         table {
             width: 100%;
             border-collapse: collapse;
@@ -260,6 +261,7 @@
             resize: none;
             min-height: 60px;
         }
+
 
         /* ⭐ ANPASSBARE PROFIL-BILDGRÖSSE ⭐ */
         .profile-image {
@@ -405,20 +407,7 @@
                     </div>
                 </div>
 
-                <!-- Latest Projects -->
-                <div class="cv-card p-6 rounded-xl">
-                    <h2 class="cv-section-title">Latest Projects</h2>
-                    <div class="dropdown">
-                        <button class="skill-tag cv-button w-full justify-between flex items-center border-0">
-                            Projekte auswählen
-                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="https://github.com/Natvdst/conversion-tool" target="_blank" class="dropdown-item">Conversion Tool, JavaScript</a>
-                            <a href="https://github.com/Natvdst/MiniToDo" target="_blank" class="dropdown-item">To Do Liste, Java</a>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Bildung -->
                 <div class="cv-card p-6 rounded-xl">
@@ -479,6 +468,21 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- Latest Projects -->
+                 <div class="cv-card p-6 rounded-xl order-7 md:order-none">
+                    <h2 class="cv-section-title">Latest Projects</h2>
+                    <div class="dropdown">
+                        <button class="skill-tag cv-button w-full justify-between flex items-center border-0" onclick="toggleDropdown(event)">
+                            Projekte auswählen
+                            <i data-lucide="chevron-down" class="w-4 h-4" id="dropdown-icon"></i>
+                        </button>
+                        <div class="dropdown-content" id="dropdown-content">
+                            <a href="https://github.com/Natvdst/conversion-tool" target="_blank" class="dropdown-item">Conversion Tool, JavaScript</a>
+                            <a href="https://github.com/Natvdst/MiniToDo" target="_blank" class="dropdown-item">To Do Liste, Java</a>
+                        </div>
                     </div>
                 </div>
             </div>
